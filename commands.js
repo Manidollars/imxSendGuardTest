@@ -46,7 +46,7 @@ var __awaiter = this && this.__awaiter || function (thisArg, _arguments, P, gene
 Office.onReady(function () {
   // If needed, Office.js is ready to be called.
 });
-var targetOrigin = "https://manidollars.github.io/imxSendGuard";
+var targetOrigin = "https://manidollars.github.io/imxSendGuardTest";
 /**
  * Shows a notification when the add-in command is executed.
  * @param event
@@ -67,59 +67,65 @@ function action(event) {
 /**
  * Shared logic to inspect fields, check for external domains, and update the Outlook UI.
  */
-function validateRecipientsAndUpdateUI(mailItem, checkTo, checkCc, checkBcc) {
+function validateRecipientsAndShowNotification(mailItem, checkTo, checkCc, checkBcc) {
   return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator().m(function _callee() {
-    var targetDomain, hasExternalRecipient, toRecipients, ccRecipients, bccRecipients, isAndroidMobile, isiOSMobile, isMobile, notificationPayload, _t;
+    var targetDomain, hasExternalRecipient, itemHasAttachments, toRecipients, ccRecipients, bccRecipients, isAndroidMobile, isiOSMobile, isMobile, notificationPayload, _t;
     return _regenerator().w(function (_context) {
       while (1) switch (_context.p = _context.n) {
         case 0:
           targetDomain = "@inMailX.onmicrosoft.com";
           hasExternalRecipient = false;
           _context.p = 1;
+          _context.n = 2;
+          return selectedItemHasAttachments().catch(function () {
+            return false;
+          });
+        case 2:
+          itemHasAttachments = _context.v;
           if (!(checkTo && mailItem.to)) {
-            _context.n = 3;
+            _context.n = 4;
             break;
           }
-          _context.n = 2;
+          _context.n = 3;
           return getRecipientsWithTimeout(mailItem.to).catch(function () {
             return [];
           });
-        case 2:
+        case 3:
           toRecipients = _context.v;
           if (hasInvalidDomain(toRecipients, targetDomain)) {
             hasExternalRecipient = true;
           }
-        case 3:
+        case 4:
           if (!(!hasExternalRecipient && checkCc && mailItem.cc)) {
-            _context.n = 5;
+            _context.n = 6;
             break;
           }
-          _context.n = 4;
+          _context.n = 5;
           return getRecipientsWithTimeout(mailItem.cc).catch(function () {
             return [];
           });
-        case 4:
+        case 5:
           ccRecipients = _context.v;
           if (hasInvalidDomain(ccRecipients, targetDomain)) {
             hasExternalRecipient = true;
           }
-        case 5:
+        case 6:
           if (!(!hasExternalRecipient && checkBcc && mailItem.bcc)) {
-            _context.n = 7;
+            _context.n = 8;
             break;
           }
-          _context.n = 6;
+          _context.n = 7;
           return getRecipientsWithTimeout(mailItem.bcc).catch(function () {
             return [];
           });
-        case 6:
+        case 7:
           bccRecipients = _context.v;
           if (hasInvalidDomain(bccRecipients, targetDomain)) {
             hasExternalRecipient = true;
           }
-        case 7:
+        case 8:
           if (!hasExternalRecipient) {
-            _context.n = 9;
+            _context.n = 10;
             break;
           }
           // const isMobile = Office.context.diagnostics.platform === Office.PlatformType.Android ||
@@ -129,13 +135,13 @@ function validateRecipientsAndUpdateUI(mailItem, checkTo, checkCc, checkBcc) {
           isMobile = isAndroidMobile || isiOSMobile;
           notificationPayload = {
             type: Office.MailboxEnums.ItemNotificationMessageType.ErrorMessage,
-            message: "Warning: Verify that each recipient is correct before sending."
+            message: itemHasAttachments ? "Warning: Verify that each recipient and attachment is correct before sending." : "Warning: Verify that each recipient is correct before sending."
           }; // Android/iOS platforms enforce strict key validations and expect "none"
           if (isMobile) {
             // notificationPayload.persistent = false;
             // notificationPayload.icon = "inMailX_icon16";
           }
-          _context.n = 8;
+          _context.n = 9;
           return new Promise(function (resolve) {
             mailItem.notificationMessages.replaceAsync("ExternalDomainWarning", notificationPayload, function () {
               return resolve();
@@ -147,27 +153,27 @@ function validateRecipientsAndUpdateUI(mailItem, checkTo, checkCc, checkBcc) {
             //   persistent: false    // FIXED: Compelled structure layout for Android runtime compliance
             // }, () => resolve());
           });
-        case 8:
-          _context.n = 10;
-          break;
         case 9:
-          _context.n = 10;
+          _context.n = 11;
+          break;
+        case 10:
+          _context.n = 11;
           return new Promise(function (resolve) {
             mailItem.notificationMessages.removeAsync("ExternalDomainWarning", function () {
               return resolve();
             });
           });
-        case 10:
-          _context.n = 12;
-          break;
         case 11:
-          _context.p = 11;
+          _context.n = 13;
+          break;
+        case 12:
+          _context.p = 12;
           _t = _context.v;
           console.error("Bypassed unexpected error in UI validation: ", _t);
-        case 12:
+        case 13:
           return _context.a(2);
       }
-    }, _callee, null, [[1, 11]]);
+    }, _callee, null, [[1, 12]]);
   }));
 }
 function onMessageRecipientsChangedHandler(event) {
@@ -190,12 +196,13 @@ function onMessageRecipientsChangedHandler(event) {
           }
           return _context2.a(2);
         case 2:
+          // const itemHasAttachments = await selectedItemHasAttachments().catch(() => false);
           // FIXED: Using const with safe fallback handling for Android
           checkTo = event.changedRecipientFields ? !!event.changedRecipientFields.to : true;
           checkCc = event.changedRecipientFields ? !!event.changedRecipientFields.cc : true;
           checkBcc = event.changedRecipientFields ? !!event.changedRecipientFields.bcc : true; // Execute the shared validation logic
           _context2.n = 3;
-          return validateRecipientsAndUpdateUI(mailItem, checkTo, checkCc, checkBcc);
+          return validateRecipientsAndShowNotification(mailItem, checkTo, checkCc, checkBcc);
         case 3:
           _context2.n = 5;
           break;
@@ -236,7 +243,7 @@ function onNewMessageComposeHandler(event) {
           return _context3.a(2);
         case 2:
           _context3.n = 3;
-          return validateRecipientsAndUpdateUI(mailItem, true, true, true);
+          return validateRecipientsAndShowNotification(mailItem, true, true, true);
         case 3:
           _context3.n = 5;
           break;
@@ -277,7 +284,7 @@ function onMessageComposeHandler(event) {
           return _context4.a(2);
         case 2:
           _context4.n = 3;
-          return validateRecipientsAndUpdateUI(mailItem, true, true, true);
+          return validateRecipientsAndShowNotification(mailItem, true, true, true);
         case 3:
           _context4.n = 5;
           break;
@@ -297,6 +304,78 @@ function onMessageComposeHandler(event) {
     }, _callee4, null, [[1, 4, 5, 6]]);
   }));
 }
+function onMessageAttachmentsChangedHandler(event) {
+  return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator().m(function _callee5() {
+    var mailItem, _t5;
+    return _regenerator().w(function (_context5) {
+      while (1) switch (_context5.p = _context5.n) {
+        case 0:
+          if (event) {
+            _context5.n = 1;
+            break;
+          }
+          return _context5.a(2);
+        case 1:
+          _context5.p = 1;
+          mailItem = Office.context.mailbox.item;
+          if (!(mailItem == null || mailItem.itemType !== Office.MailboxEnums.ItemType.Message)) {
+            _context5.n = 2;
+            break;
+          }
+          return _context5.a(2);
+        case 2:
+          _context5.n = 3;
+          return validateRecipientsAndShowNotification(mailItem, true, true, true);
+        case 3:
+          _context5.n = 5;
+          break;
+        case 4:
+          _context5.p = 4;
+          _t5 = _context5.v;
+          console.error("Error during message attachments changed handling:", _t5);
+        case 5:
+          _context5.p = 5;
+          if (event && typeof event.completed === "function") {
+            event.completed();
+          }
+          return _context5.f(5);
+        case 6:
+          return _context5.a(2);
+      }
+    }, _callee5, null, [[1, 4, 5, 6]]);
+  }));
+}
+function selectedItemHasAttachments() {
+  return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator().m(function _callee6() {
+    return _regenerator().w(function (_context6) {
+      while (1) switch (_context6.n) {
+        case 0:
+          return _context6.a(2, new Promise(function (resolve, reject) {
+            var item = Office.context.mailbox.item;
+            if (!item) {
+              reject(new Error("No item found in mailbox context."));
+              return;
+            }
+            item.getAttachmentsAsync(function (result) {
+              if (result.status === Office.AsyncResultStatus.Succeeded) {
+                resolve(result.value && result.value.length > 0);
+              } else {
+                reject(result.error);
+              }
+            });
+          }));
+      }
+    }, _callee6);
+  }));
+}
+// async function attachItemEvents(): Promise<Boolean> {
+//   try {
+//     const mailItem = Office.context.mailbox.item;
+//     if (mailItem == null || mailItem.itemType !== Office.MailboxEnums.ItemType.Message) {
+//       return false;
+//     }
+//     // Attach the recipients changed event handler
+//     mailItem.addHandlerAsync(Office.EventType.AttachmentsChanged, onMessageAttachmentsChangedHandler);
 /**
  * FIXED: High-reliability wrapper for getAsync that self-rejects if Outlook stalls,
  * preventing the entire add-in background task container from being killed with a 5018 timeout error.
