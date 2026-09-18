@@ -8,6 +8,12 @@
 /***/ (function(__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
 
 /* provided dependency */ var Promise = __webpack_require__(/*! es6-promise */ "./node_modules/es6-promise/dist/es6-promise.js").Promise;
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
 function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i.return) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
 function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); } r ? i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n : (o("next", 0), o("throw", 1), o("return", 2)); }, _regeneratorDefine2(e, r, n, t); }
 /// <reference types="@types/office-js" />
@@ -69,11 +75,11 @@ function action(event) {
  */
 function validateRecipientsAndShowNotification(mailItem, checkTo, checkCc, checkBcc) {
   return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator().m(function _callee() {
-    var targetDomain, hasExternalRecipient, itemHasAttachments, toRecipients, ccRecipients, bccRecipients, isAndroidMobile, isiOSMobile, isMobile, notificationPayload, _t;
+    var hasExternalRecipient, itemHasAttachments, toRecipients, ccRecipients, bccRecipients, warningWithAttachments, warningWithoutAttachments, isAndroidMobile, isiOSMobile, isMobile, notificationPayload, _t;
     return _regenerator().w(function (_context) {
       while (1) switch (_context.p = _context.n) {
         case 0:
-          targetDomain = "@inMailX.onmicrosoft.com";
+          //const targetDomain = "@inMailX.onmicrosoft.com";
           hasExternalRecipient = false;
           _context.p = 1;
           _context.n = 2;
@@ -92,7 +98,7 @@ function validateRecipientsAndShowNotification(mailItem, checkTo, checkCc, check
           });
         case 3:
           toRecipients = _context.v;
-          if (hasInvalidDomain(toRecipients, targetDomain)) {
+          if (hasInvalidDomain(toRecipients)) {
             hasExternalRecipient = true;
           }
         case 4:
@@ -106,7 +112,7 @@ function validateRecipientsAndShowNotification(mailItem, checkTo, checkCc, check
           });
         case 5:
           ccRecipients = _context.v;
-          if (hasInvalidDomain(ccRecipients, targetDomain)) {
+          if (hasInvalidDomain(ccRecipients)) {
             hasExternalRecipient = true;
           }
         case 6:
@@ -120,7 +126,7 @@ function validateRecipientsAndShowNotification(mailItem, checkTo, checkCc, check
           });
         case 7:
           bccRecipients = _context.v;
-          if (hasInvalidDomain(bccRecipients, targetDomain)) {
+          if (hasInvalidDomain(bccRecipients)) {
             hasExternalRecipient = true;
           }
         case 8:
@@ -130,28 +136,24 @@ function validateRecipientsAndShowNotification(mailItem, checkTo, checkCc, check
           }
           // const isMobile = Office.context.diagnostics.platform === Office.PlatformType.Android ||
           //   Office.context.diagnostics.platform === Office.PlatformType.iOS;
+          warningWithAttachments = "Warning: Verify that each recipient and attachment is correct before sending.";
+          warningWithoutAttachments = "Warning: Verify that each recipient is correct before sending.";
           isAndroidMobile = Office.context.diagnostics.platform === Office.PlatformType.Android || /Android/i.test(navigator.userAgent);
           isiOSMobile = Office.context.diagnostics.platform === Office.PlatformType.iOS || /iPhone|iPad|iPod/i.test(navigator.userAgent);
           isMobile = isAndroidMobile || isiOSMobile;
           notificationPayload = {
             type: Office.MailboxEnums.ItemNotificationMessageType.ErrorMessage,
-            message: itemHasAttachments ? "Warning: Verify that each recipient and attachment is correct before sending." : "Warning: Verify that each recipient is correct before sending."
-          }; // Android/iOS platforms enforce strict key validations and expect "none"
-          if (isMobile) {
-            // notificationPayload.persistent = false;
-            // notificationPayload.icon = "inMailX_icon16";
-          }
+            message: itemHasAttachments ? warningWithAttachments : warningWithoutAttachments
+          }; // // Android/iOS platforms enforce strict key validations and expect "none"
+          // if (isMobile) {
+          //   // notificationPayload.persistent = false;
+          //   // notificationPayload.icon = "inMailX_icon16";
+          // }
           _context.n = 9;
           return new Promise(function (resolve) {
             mailItem.notificationMessages.replaceAsync("ExternalDomainWarning", notificationPayload, function () {
               return resolve();
             });
-            // mailItem.notificationMessages.replaceAsync("ExternalDomainWarning", {
-            //   type: Office.MailboxEnums.ItemNotificationMessageType.ErrorMessage,
-            //   message: "Warning: Some or all recipients added to this message are external.",
-            //   icon: "none",        // FIXED: Compelled structure layout for Android runtime compliance
-            //   persistent: false    // FIXED: Compelled structure layout for Android runtime compliance
-            // }, () => resolve());
           });
         case 9:
           _context.n = 11;
@@ -176,7 +178,7 @@ function validateRecipientsAndShowNotification(mailItem, checkTo, checkCc, check
     }, _callee, null, [[1, 12]]);
   }));
 }
-function onMessageRecipientsChangedHandler(event) {
+function OnMessageRecipientsChangedHandler(event) {
   return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator().m(function _callee2() {
     var mailItem, checkTo, checkCc, checkBcc, _t2;
     return _regenerator().w(function (_context2) {
@@ -197,7 +199,7 @@ function onMessageRecipientsChangedHandler(event) {
           return _context2.a(2);
         case 2:
           // const itemHasAttachments = await selectedItemHasAttachments().catch(() => false);
-          // FIXED: Using const with safe fallback handling for Android
+          //Using safe fallback handling for Android
           checkTo = event.changedRecipientFields ? !!event.changedRecipientFields.to : true;
           checkCc = event.changedRecipientFields ? !!event.changedRecipientFields.cc : true;
           checkBcc = event.changedRecipientFields ? !!event.changedRecipientFields.bcc : true; // Execute the shared validation logic
@@ -222,7 +224,7 @@ function onMessageRecipientsChangedHandler(event) {
     }, _callee2, null, [[1, 4, 5, 6]]);
   }));
 }
-function onNewMessageComposeHandler(event) {
+function OnNewMessageComposeHandler(event) {
   return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator().m(function _callee3() {
     var mailItem, _t3;
     return _regenerator().w(function (_context3) {
@@ -263,7 +265,7 @@ function onNewMessageComposeHandler(event) {
     }, _callee3, null, [[1, 4, 5, 6]]);
   }));
 }
-function onMessageComposeHandler(event) {
+function OnMessageComposeHandler(event) {
   return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator().m(function _callee4() {
     var mailItem, _t4;
     return _regenerator().w(function (_context4) {
@@ -304,7 +306,7 @@ function onMessageComposeHandler(event) {
     }, _callee4, null, [[1, 4, 5, 6]]);
   }));
 }
-function onMessageAttachmentsChangedHandler(event) {
+function OnMessageAttachmentsChangedHandler(event) {
   return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator().m(function _callee5() {
     var mailItem, _t5;
     return _regenerator().w(function (_context5) {
@@ -345,12 +347,161 @@ function onMessageAttachmentsChangedHandler(event) {
     }, _callee5, null, [[1, 4, 5, 6]]);
   }));
 }
-function selectedItemHasAttachments() {
+function OnMessageFromChangedHandler(event) {
   return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator().m(function _callee6() {
+    var mailItem, _t6;
     return _regenerator().w(function (_context6) {
-      while (1) switch (_context6.n) {
+      while (1) switch (_context6.p = _context6.n) {
         case 0:
-          return _context6.a(2, new Promise(function (resolve, reject) {
+          if (event) {
+            _context6.n = 1;
+            break;
+          }
+          return _context6.a(2);
+        case 1:
+          _context6.p = 1;
+          mailItem = Office.context.mailbox.item;
+          if (!(mailItem == null || mailItem.itemType !== Office.MailboxEnums.ItemType.Message)) {
+            _context6.n = 2;
+            break;
+          }
+          return _context6.a(2);
+        case 2:
+          _context6.n = 3;
+          return validateRecipientsAndShowNotification(mailItem, true, true, true);
+        case 3:
+          _context6.n = 5;
+          break;
+        case 4:
+          _context6.p = 4;
+          _t6 = _context6.v;
+          console.error("Error during message From field changed handling:", _t6);
+        case 5:
+          _context6.p = 5;
+          if (event && typeof event.completed === "function") {
+            event.completed();
+          }
+          return _context6.f(5);
+        case 6:
+          return _context6.a(2);
+      }
+    }, _callee6, null, [[1, 4, 5, 6]]);
+  }));
+}
+function OnMessageSendHandler(event) {
+  return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator().m(function _callee7() {
+    var mailItem, hasExternalRecipient, itemHasAttachments, externalRecipientValidationResult, warningWithAttachments, warningWithoutAttachments, completionOptions, _completionOptions, _completionOptions2, _t7, _t8, _t9, _t0, _t1, _t10, _t11, _t12;
+    return _regenerator().w(function (_context7) {
+      while (1) switch (_context7.p = _context7.n) {
+        case 0:
+          if (event) {
+            _context7.n = 1;
+            break;
+          }
+          return _context7.a(2);
+        case 1:
+          _context7.p = 1;
+          // const mailItem = Office.context.mailbox.item;
+          mailItem = Office.context.mailbox.item;
+          if (!(mailItem == null || mailItem.itemType !== Office.MailboxEnums.ItemType.Message)) {
+            _context7.n = 2;
+            break;
+          }
+          return _context7.a(2);
+        case 2:
+          hasExternalRecipient = false;
+          _context7.n = 3;
+          return selectedItemHasAttachments().catch(function () {
+            return false;
+          });
+        case 3:
+          itemHasAttachments = _context7.v;
+          _t7 = getInvalidRecipients;
+          _t8 = [];
+          _t9 = _toConsumableArray;
+          _context7.n = 4;
+          return getRecipientsWithTimeout(mailItem.to).catch(function () {
+            return [];
+          });
+        case 4:
+          _t0 = _t9(_context7.v);
+          _t1 = _toConsumableArray;
+          _context7.n = 5;
+          return getRecipientsWithTimeout(mailItem.cc).catch(function () {
+            return [];
+          });
+        case 5:
+          _t10 = _t1(_context7.v);
+          _t11 = _toConsumableArray;
+          _context7.n = 6;
+          return getRecipientsWithTimeout(mailItem.bcc).catch(function () {
+            return [];
+          });
+        case 6:
+          externalRecipientValidationResult = _t7(_t8.concat.call(_t8, _t0, _t10, _t11(_context7.v)));
+          if (externalRecipientValidationResult.HasExternalDomain) {
+            warningWithAttachments = "Verify that each recipient and attachment is correct before sending.";
+            warningWithoutAttachments = "Verify that each recipient is correct before sending."; //Office.SmartAlertsEventCompletedOptions
+            if (itemHasAttachments) {
+              // Show a prompt to the user before sending the email
+              //const userConfirmed = confirm(warningWithAttachments);
+              completionOptions = {
+                allowEvent: false,
+                errorMessage: warningWithAttachments,
+                errorMessageMarkdown: "The following recipients have invalid domains: ".concat(externalRecipientValidationResult.ExternalRecipients.join(", ")),
+                cancelLabel: "Review Recipients",
+                sendModeOverride: Office.MailboxEnums.SendModeOverride.PromptUser
+              };
+              event.completed(completionOptions);
+              // event.completed({
+              //   allowEvent: false,
+              //   // errorMessage: warningWithAttachments,
+              //   // errorMessageType: Office.MailboxEnums.ItemNotificationMessageType.ErrorMessage,
+              //   // errorMessageMarkDown: `The following recipients have invalid domains: ${externalRecipientValidationResult.ExternalRecipients.join(", ")}`,
+              // });
+            } else {
+              _completionOptions = {
+                allowEvent: false,
+                errorMessage: warningWithoutAttachments,
+                errorMessageMarkdown: "The following recipients have invalid domains: ".concat(externalRecipientValidationResult.ExternalRecipients.join(", ")),
+                cancelLabel: "Do not Send",
+                sendModeOverride: Office.MailboxEnums.SendModeOverride.PromptUser
+              };
+              event.completed(_completionOptions);
+              // event.completed({
+              //   allowEvent: false,
+              //   // errorMessage: warningWithoutAttachments,
+              //   // errorMessageType: Office.MailboxEnums.ItemNotificationMessageType.ErrorMessage,
+              //   // errorMessageMarkDown: `The following recipients have invalid domains: ${externalRecipientValidationResult.ExternalRecipients.join(", ")}`,
+              // });
+            }
+          } else {
+            //no external recipients found, allow the send to proceed
+            // event.completed({ allowEvent: true });
+            _completionOptions2 = {
+              allowEvent: true
+            };
+            event.completed(_completionOptions2);
+          }
+          _context7.n = 8;
+          break;
+        case 7:
+          _context7.p = 7;
+          _t12 = _context7.v;
+          console.error("Error during message send handling:", _t12);
+          event.completed();
+        case 8:
+          return _context7.a(2);
+      }
+    }, _callee7, null, [[1, 7]]);
+  }));
+}
+function selectedItemHasAttachments() {
+  return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator().m(function _callee8() {
+    return _regenerator().w(function (_context8) {
+      while (1) switch (_context8.n) {
+        case 0:
+          return _context8.a(2, new Promise(function (resolve, reject) {
             var item = Office.context.mailbox.item;
             if (!item) {
               reject(new Error("No item found in mailbox context."));
@@ -358,24 +509,20 @@ function selectedItemHasAttachments() {
             }
             item.getAttachmentsAsync(function (result) {
               if (result.status === Office.AsyncResultStatus.Succeeded) {
-                resolve(result.value && result.value.length > 0);
+                // resolve(result.value && result.value.length > 0);
+                var hasRegularAttachment = result.value.some(function (attachment) {
+                  return !attachment.isInline;
+                });
+                resolve(hasRegularAttachment);
               } else {
                 reject(result.error);
               }
             });
           }));
       }
-    }, _callee6);
+    }, _callee8);
   }));
 }
-// async function attachItemEvents(): Promise<Boolean> {
-//   try {
-//     const mailItem = Office.context.mailbox.item;
-//     if (mailItem == null || mailItem.itemType !== Office.MailboxEnums.ItemType.Message) {
-//       return false;
-//     }
-//     // Attach the recipients changed event handler
-//     mailItem.addHandlerAsync(Office.EventType.AttachmentsChanged, onMessageAttachmentsChangedHandler);
 /**
  * FIXED: High-reliability wrapper for getAsync that self-rejects if Outlook stalls,
  * preventing the entire add-in background task container from being killed with a 5018 timeout error.
@@ -409,22 +556,82 @@ function getRecipientsAsync(recipientField) {
     });
   });
 }
-function hasInvalidDomain(recipients, _allowedDomain) {
-  var domain = Office.context.mailbox.userProfile.emailAddress.split("@")[1].toLowerCase();
+function hasInvalidDomain(recipients) {
+  var domain = "@" + Office.context.mailbox.userProfile.emailAddress.split("@")[1].toLowerCase();
   return recipients.some(function (recipient) {
     var email = recipient.emailAddress ? recipient.emailAddress.toLowerCase().trim() : "";
     return email.length > 0 && !email.endsWith(domain.toLowerCase());
   });
 }
+function getInvalidRecipients(recipients) {
+  var domain = "@" + Office.context.mailbox.userProfile.emailAddress.split("@")[1].toLowerCase();
+  // const invalidRecipients = recipients.filter((recipient) => {
+  //   const email = recipient.emailAddress ? recipient.emailAddress.toLowerCase().trim() : "";
+  //   return email.length > 0 && !email.endsWith(domain.toLowerCase());
+  // });
+  var invalidRecipients = recipients.map(function (recipient) {
+    return recipient.emailAddress ? recipient.emailAddress.toLowerCase().trim() : "";
+  }).filter(function (email) {
+    return email.length > 0 && !email.endsWith(domain);
+  });
+  return {
+    HasExternalDomain: invalidRecipients.length > 0,
+    ExternalRecipients: invalidRecipients
+  };
+}
+function checkOutgoingMessageForExternalRecipients() {
+  return __awaiter(this, void 0, void 0, /*#__PURE__*/_regenerator().m(function _callee9() {
+    var mailItem, toRecipients, ccRecipients, bccRecipients, allRecipients;
+    return _regenerator().w(function (_context9) {
+      while (1) switch (_context9.n) {
+        case 0:
+          mailItem = Office.context.mailbox.item;
+          if (!(mailItem == null || mailItem.itemType !== Office.MailboxEnums.ItemType.Message)) {
+            _context9.n = 1;
+            break;
+          }
+          return _context9.a(2, false);
+        case 1:
+          _context9.n = 2;
+          return getRecipientsWithTimeout(mailItem.to).catch(function () {
+            return [];
+          });
+        case 2:
+          toRecipients = _context9.v;
+          _context9.n = 3;
+          return getRecipientsWithTimeout(mailItem.cc).catch(function () {
+            return [];
+          });
+        case 3:
+          ccRecipients = _context9.v;
+          _context9.n = 4;
+          return getRecipientsWithTimeout(mailItem.bcc).catch(function () {
+            return [];
+          });
+        case 4:
+          bccRecipients = _context9.v;
+          allRecipients = [].concat(_toConsumableArray(toRecipients), _toConsumableArray(ccRecipients), _toConsumableArray(bccRecipients));
+          return _context9.a(2, hasInvalidDomain(allRecipients));
+      }
+    }, _callee9);
+  }));
+}
 // Register functions inside Office Action Management framework
 Office.actions.associate("action", action);
-Office.actions.associate("onMessageRecipientsChangedHandler", onMessageRecipientsChangedHandler);
-Office.actions.associate("onNewMessageComposeHandler", onNewMessageComposeHandler);
-Office.actions.associate("OnMessageCompose", onMessageComposeHandler);
+Office.actions.associate("OnMessageRecipientsChangedHandler", OnMessageRecipientsChangedHandler);
+Office.actions.associate("OnNewMessageComposeHandler", OnNewMessageComposeHandler);
+Office.actions.associate("OnMessageComposeHandler", OnMessageComposeHandler);
+Office.actions.associate("OnMessageAttachmentsChangedHandler", OnMessageAttachmentsChangedHandler);
+Office.actions.associate("OnMessageFromChangedHandler", OnMessageFromChangedHandler);
+Office.actions.associate("OnMessageSendHandler", OnMessageSendHandler);
 // Expose functions explicitly to the Webpack window context for functional background executions
 window.action = action;
-window.onMessageRecipientsChangedHandler = onMessageRecipientsChangedHandler;
-window.onNewMessageComposeHandler = onNewMessageComposeHandler;
+window.OnMessageRecipientsChangedHandler = OnMessageRecipientsChangedHandler;
+window.OnNewMessageComposeHandler = OnNewMessageComposeHandler;
+window.OnMessageComposeHandler = OnMessageComposeHandler;
+window.OnMessageAttachmentsChangedHandler = OnMessageAttachmentsChangedHandler;
+window.OnMessageFromChangedHandler = OnMessageFromChangedHandler;
+window.OnMessageSendHandler = OnMessageSendHandler;
 
 /***/ }),
 
